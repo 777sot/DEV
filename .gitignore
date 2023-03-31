@@ -1,0 +1,11 @@
+.idea/
+*.txt
+*.phar
+*.json
+*.lock
+*.log
+symfony/node_modules
+/htaccess
+.htaccess
+www/dev/var/
+www/dev/vendor/
