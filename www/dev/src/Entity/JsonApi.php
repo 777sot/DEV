@@ -8,6 +8,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
+use function count;
 
 
 class JsonApi
@@ -66,13 +67,15 @@ class JsonApi
     /**
      * @param array $rates
      * @param string $parameter
-     * @return array
+     * @return mixed
      */
-    public function sortRatesWithParameter(array $rates, string $parameter): array
+    public function sortRatesWithParameter(array $rates, string $parameter)
     {
-        $parameter = htmlspecialchars($parameter, ENT_QUOTES);
-
-        $parameter = explode(',', $parameter);
+        $parameter = explode(',',
+            htmlspecialchars(trim($parameter),
+                 ENT_QUOTES
+            )
+        );
 
         foreach ($parameter as $key => $value) {
 
@@ -141,10 +144,12 @@ class JsonApi
      */
     public function checkingValuesConvert(array $data, string $value)
     {
+        $value =  htmlspecialchars(trim($value), ENT_QUOTES);
+
         foreach ($data as $key => $item) {
 
             if ($key === $value || $value === 'BTC') {
-                return htmlspecialchars($value, ENT_QUOTES);
+                return $value;
             }
 
         }
@@ -158,14 +163,19 @@ class JsonApi
      */
     public function checkingValuesRates(array $data, string $value)
     {
+        $parameter = explode(',', htmlspecialchars(trim($value), ENT_QUOTES));
+        $countValue = count($parameter);
+
         foreach ($data as $key => $item) {
 
-            foreach ($value as $k => $v) {
-                if ($key === $value) {
-                    return $v;
+            for ($i = 0; $i < $countValue; $i++) {
+                if ($key === $parameter[$i]) {
+                    $resultChecking[$i] = $parameter[$i];
                 }
             }
-
+        }
+        if ($countValue === count($resultChecking) ) {
+            return $value;
         }
 
     }

@@ -52,14 +52,20 @@ class JsonApiController extends AbstractController
      */
     public function index(): Response
     {
-        if ($_REQUEST['method'] && $_REQUEST['method'] === 'rates') {
+        if ($_REQUEST['method']) {
 
-            return $this->rates();
-        }
-        if ($_REQUEST['method'] && $_REQUEST['method'] === 'convert') {
+            if ($_REQUEST['method'] === 'rates') {
 
-            return $this->convert();
+                return $this->rates();
+            } elseif ($_REQUEST['method'] === 'convert') {
+
+                return $this->convert();
+            } else {
+                throw new ErrorException('No such method was found');
+            }
+
         }
+
     }
 
     /**
@@ -68,18 +74,26 @@ class JsonApiController extends AbstractController
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws ErrorException
      */
     protected function rates(): Response
     {
         $parameter = $_REQUEST['parameter'];
 
         $ratesArray = $this->jsonApi
-            ->getRates($this->httpClient);
+            ->getRates($this->httpClient)
+        ;
 
-        if ($parameter) {
+        $parameter = $this->jsonApi->checkingValuesRates($ratesArray, $parameter);
+
+        if ($parameter !== null) {
 
             $ratesArray = $this->jsonApi
-                ->sortRatesWithParameter($ratesArray, $parameter);
+                ->sortRatesWithParameter($ratesArray, $parameter)
+            ;
+        }else {
+
+            throw new ErrorException('the currency format does not match the set one');
         }
 
         if ($this->jsonApi
@@ -107,6 +121,14 @@ class JsonApiController extends AbstractController
     }
 
 
+    /**
+     * @return Response
+     * @throws ClientExceptionInterface
+     * @throws ErrorException
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     protected function convert(): Response
     {
         if ($_REQUEST['currency_from'] && $_REQUEST['currency_to']) {
