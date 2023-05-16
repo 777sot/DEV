@@ -64,16 +64,12 @@ class JsonApi
         return $ratesArray;
     }
 
-    /**
-     * @param array $rates
-     * @param string $parameter
-     * @return mixed
-     */
-    public function sortRatesWithParameter(array $rates, string $parameter)
+
+    public function sortRatesWithParameter($rates, $parameter)
     {
         $parameter = explode(',',
             htmlspecialchars(trim($parameter),
-                 ENT_QUOTES
+                ENT_QUOTES
             )
         );
 
@@ -144,7 +140,7 @@ class JsonApi
      */
     public function checkingValuesConvert(array $data, string $value)
     {
-        $value =  htmlspecialchars(trim($value), ENT_QUOTES);
+        $value = htmlspecialchars(trim($value), ENT_QUOTES);
 
         foreach ($data as $key => $item) {
 
@@ -174,9 +170,9 @@ class JsonApi
                 }
             }
         }
-        if ($countValue === count($resultChecking) ) {
+        if ($countValue === count($resultChecking)) {
             return $value;
         }
-
     }
+
 }

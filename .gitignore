@@ -9,3 +9,4 @@ symfony/node_modules
 .htaccess
 www/dev/var/
 www/dev/vendor/
+www/dev/node_modules

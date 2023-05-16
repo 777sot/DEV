@@ -16,3 +16,22 @@ WHERE
    && books.id = user_books.book_id # Выборка данных из всех таблиц согласно фильтра данных
 GROUP BY users.id, books.author
 HAVING COUNT(`Authors`) = 2 # Книги одного автора в кол-ве 2 шт.
+
+______________________________________________________________________________________________________________________
+
+SELECT
+        u.id AS ID,
+        CONCAT(u.first_name, ' ', u.last_name) AS NAME,
+        b.author AS Authors,
+        GROUP_CONCAT(b.name SEPARATOR ', ') AS Books
+FROM
+        users u JOIN books b JOIN user_books ub
+WHERE
+        u.id = ub.user_id
+        && YEAR(CURRENT_DATE()) - YEAR(u.birthday) >= 7
+        && YEAR(CURRENT_DATE()) - YEAR(u.birthday) < 17
+        && DATEDIFF(ub.get_date, ub.return_date) <= 14
+        && u.id = ub.user_id
+        && b.id = ub.book_id
+GROUP BY
+        u.id, b.author HAVING COUNT(u.id) = 2

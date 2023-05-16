@@ -2,10 +2,10 @@
 
 namespace App\Controller\Api;
 
-
 use App\Entity\JsonApi;
 use ErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -29,6 +29,10 @@ class JsonApiController extends AbstractController
      * @var JsonApi
      */
     private JsonApi $jsonApi;
+    /**
+     * @var Request
+     */
+    private $request;
 
     /**
      * JsonApiController constructor.
@@ -38,8 +42,16 @@ class JsonApiController extends AbstractController
     {
         $this->httpClient = $httpClient;
         $this->jsonApi = new JsonApi();
-    }
+        $this->request = new Request(
+            $_GET,
+            $_POST,
+            [],
+            $_COOKIE,
+            $_FILES,
+            $_SERVER
+        );
 
+    }
 
     /**
      * @Route("/api/v1", name="app_json_api")
@@ -52,46 +64,48 @@ class JsonApiController extends AbstractController
      */
     public function index(): Response
     {
-        if ($_REQUEST['method']) {
+        $method = $this->request->get('method');
+        //$method = htmlspecialchars(strip_tags($_REQUEST['method']));
 
-            if ($_REQUEST['method'] === 'rates') {
+
+        if ($method) {
+
+            if ($method === 'rates') {
 
                 return $this->rates();
-            } elseif ($_REQUEST['method'] === 'convert') {
+            } elseif ($method === 'convert') {
 
                 return $this->convert();
             } else {
                 throw new ErrorException('No such method was found');
             }
-
         }
 
     }
 
     /**
      * @return Response
-     * @throws TransportExceptionInterface
      * @throws ClientExceptionInterface
+     * @throws ErrorException
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
-     * @throws ErrorException
+     * @throws TransportExceptionInterface
      */
     protected function rates(): Response
     {
-        $parameter = $_REQUEST['parameter'];
+        $parameter = $this->request->get('parameter');
+        //$parameter = $_REQUEST['parameter'];
 
-        $ratesArray = $this->jsonApi
-            ->getRates($this->httpClient)
-        ;
+        $rates_array = $this->jsonApi
+            ->getRates($this->httpClient);
 
-        $parameter = $this->jsonApi->checkingValuesRates($ratesArray, $parameter);
+        $parameter = $this->jsonApi->checkingValuesRates($rates_array, $parameter);
 
         if ($parameter !== null) {
 
-            $ratesArray = $this->jsonApi
-                ->sortRatesWithParameter($ratesArray, $parameter)
-            ;
-        }else {
+            $rates_array = $this->jsonApi
+                ->sortRatesWithParameter($rates_array, $parameter);
+        } else {
 
             throw new ErrorException('the currency format does not match the set one');
         }
@@ -115,7 +129,7 @@ class JsonApiController extends AbstractController
                 ->getStatusCode()
             ,
             'data' => $this->jsonApi
-                ->sortArrayASC($ratesArray)
+                ->sortArrayASC($rates_array)
             ,
         ]);
     }
@@ -131,81 +145,79 @@ class JsonApiController extends AbstractController
      */
     protected function convert(): Response
     {
-        if ($_REQUEST['currency_from'] && $_REQUEST['currency_to']) {
+        $currency_to = $this->request->get('currency_to');
+        $currency_from = $this->request->get('currency_from');
+        $value = $this->request->get('value');
 
-            $currencyFrom = $this->jsonApi
+        if ($currency_from && $currency_to) {
+
+            $currency_from = $this->jsonApi
                 ->checkingValuesConvert(
                     $this->jsonApi->
                     getRates($this->httpClient)
                     ,
-                    $_REQUEST['currency_from']
-                )
-            ;
+                    $currency_from
+                );
 
-            $currencyTo = $this->jsonApi
+            $currency_to = $this->jsonApi
                 ->checkingValuesConvert(
                     $this->jsonApi->
                     getRates($this->httpClient)
                     ,
-                    $_REQUEST['currency_to']
-                )
-            ;
+                    $currency_to
+                );
 
         }
 
-        if (is_numeric($_REQUEST['value'])) {
-
-            $value = htmlspecialchars($_REQUEST['value'], ENT_QUOTES);
+        if (!is_numeric($value)) {
+            throw new ErrorException('Invalid value format');
         }
 
 
-        if (empty($currencyFrom) || empty($currencyTo)) {
+        if (empty($currency_from) || empty($currency_to)) {
 
-            throw new ErrorException('the currency format does not match the set one');
+            throw new ErrorException('The currency format does not match the set one');
 
         }
 
         $response = $this->jsonApi->getResponse($this->httpClient);
 
-        if ($currencyFrom && $currencyTo && $value) {
+        if ($currency_from && $currency_to && $value) {
 
-            $parameter = $currencyFrom . ',' . $currencyTo;
+            $parameter = $currency_from . ',' . $currency_to;
 
-            $ratesArray = $this->jsonApi
+            $rates_array = $this->jsonApi
                 ->sortRatesWithParameter(
                     (array)$this->jsonApi
                         ->getRates($this->httpClient)
                     ,
                     $parameter
-                )
-            ;
+                );
 
             if ($value < 0.01) {
 
                 throw new ErrorException('error minimum value 0.01');
             }
 
-            if ($currencyFrom !== 'BTC') {
+            if ($currency_from !== 'BTC') {
 
-                $rate = $ratesArray[$currencyFrom]['buy'];
+                $rate = $rates_array[$currency_from]['buy'];
 
-                $convertedValue = $this->jsonApi
+                $converted_value = $this->jsonApi
                     ->numFormat(
                         $value/$rate,
                         10
-                    )
-                ;
+                    );
 
-            } elseif ($currencyFrom === 'BTC') {
+            } elseif ($currency_from === 'BTC') {
 
-                $rate = $ratesArray[$currencyTo]['buy'];
+                $rate = $rates_array[$currency_to]['buy'];
 
-                $convertedValue = $this->jsonApi
+                $converted_value = $this->jsonApi
                     ->numFormat(
                         $value*$rate,
                         2
-                    )
-                ;
+                    );
             }
 
             if ($response->getStatusCode() === 200) {
@@ -213,13 +225,7 @@ class JsonApiController extends AbstractController
                 return $this->json([
                     'status' => 'success',
                     'code' => $response->getStatusCode(),
-                    'data' => [
-                        'currency_from' => $currencyFrom,
-                        'currency_to' => $currencyTo,
-                        'value' => $value,
-                        'converted_value' => $convertedValue,
-                        'rate' => $rate,
-                    ],
+                    'data' => compact('currency_from', 'currency_to', 'value', 'converted_value', 'rate'),
                 ]);
             }
 

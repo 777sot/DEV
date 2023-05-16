@@ -1,10 +1,15 @@
 <?php
 
+define('HTTP_HOST', 'http://' . $_SERVER['HTTP_HOST']);
+
 use App\Kernel;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
 require dirname(__DIR__).'/config/bootstrap.php';
+require dirname(__DIR__ ). '/vendor/autoload.php';
+
+
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
@@ -25,3 +30,6 @@ $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);
+
+
+

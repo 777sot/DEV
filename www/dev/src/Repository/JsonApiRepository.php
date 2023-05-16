@@ -23,10 +23,7 @@ class JsonApiRepository extends ServiceEntityRepository
         parent::__construct($registry, JsonApi::class);
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
+
     public function add(JsonApi $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
@@ -35,10 +32,6 @@ class JsonApiRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
     public function remove(JsonApi $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);

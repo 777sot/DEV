@@ -1,4 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b3e40974-560a-4025-a2ad-2191020804c2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/www/dev/assets/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/dev/assets/bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/dev/assets/controllers/hello_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/dev/assets/styles/app.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/dev/config/packages/webpack_encore.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/dev/src/DataFixtures/BaseFixtures.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/dev/templates/authorization_form.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/dev/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DEVELOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DEVELOP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TEST_MYSQL/SQL_SELECT_DB.php" beforeDir="false" afterPath="$PROJECT_DIR$/TEST_MYSQL/SQL_SELECT_DB.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/.env" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/public/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/src/Controller/Api/JsonApiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/src/Controller/Api/JsonApiController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/src/Entity/JsonApi.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/src/Entity/JsonApi.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/src/Repository/JsonApiRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/src/Repository/JsonApiRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/dev/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/www/dev/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../final-symfony/MEGANO/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../final-symfony/MEGANO/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../final-symfony/MEGANO/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../final-symfony/MEGANO/yarn.lock" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="DEVELOPER" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="DEVELOPER" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="DEVELOPER" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="develop: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="DEVELOPER" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="develop: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="user: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpDebugGeneral" xdebug_debug_port="9003" break_at_first_line="true" hide_empty_superglobals="false" />
+  <component name="PhpServers">
+    <servers>
+      <server host="develop:8000" id="c87d4b8e-c025-4956-a605-86b1c9f8332b" name="develop:8000" port="8000" />
+      <server host="127.0.0.1" id="b080380c-7eb9-4045-bfb6-aa93f65d8907" name="127.0.0.1" port="8080" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$/www/dev/vendor/symfony/http-client-contracts/Test/Fixtures/web" remote-root="C:/OpenServer/modules/system/html/openserver/phpmyadmin" />
+        </path_mappings>
+      </server>
+      <server host="localhost:8000" id="3a9580b8-c4ff-49bb-97d6-942fe44908a1" name="localhost:8000" port="8000" />
+    </servers>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4_localhost" />
   <component name="ProjectId" id="2NjYQBEHFoNMDiHmAQfvCKSz4Uk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/www/dev/src/DataFixtures" />
+    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\OpenServer\domains\DEVELOP\www\dev\src\DataFixtures" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b3e40974-560a-4025-a2ad-2191020804c2" name="Default Changelist" comment="" />
+      <created>1684131989087</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1684131989087</updated>
+      <workItem from="1684131990568" duration="4094000" />
+      <workItem from="1684136141142" duration="30748000" />
+      <workItem from="1684174220457" duration="25797000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
 </project>
